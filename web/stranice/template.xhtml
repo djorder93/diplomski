@@ -15,22 +15,17 @@
 
         <p:growl id="growl" life="3000" />
         <p:layout fullPage="true">
-            <p:layoutUnit position="east">
-                <h:form>
-                    <p:commandButton value="Logout" style="float: right"  action="#{mbLogin.logout()}" />
-                </h:form>
-            </p:layoutUnit>
-            <p:layoutUnit position="north" size="65" header="KORISNIK: #{mbLogin.ms.toString()}">
+            <p:layoutUnit position="north" size="90" header="KORISNIK: #{mbLogin.ms.toString()}">
                 <h:form id="menuForm">
-                    <p:menubar>
-                        <p:menuitem value="Doktor" outcome="/stranice/doktor/List.xhtml" />
-                        <p:menuitem value="Intervencija" outcome="/stranice/intervencija/List.xhtml" />
-                        <p:menuitem value="Medsestra" outcome="/stranice/medsestra/List.xhtml" />
-                        <p:menuitem value="Pacijent" outcome="/stranice/pacijent/List.xhtml" />
-                        <p:menuitem value="Stavkaintervencije" outcome="/stranice/stavkaintervencije/List.xhtml" />
-                        <p:menuitem value="Termin" outcome="/stranice/termin/List.xhtml" />
-                        <p:menuitem value="Zub" outcome="/stranice/zub/List.xhtml" />
-                    </p:menubar>
+                    <p:commandButton value="Doktor" style="float: left"  action="/stranice/doktor/List.xhtml" />
+                    <p:commandButton value="Intervencija" style="float: left"  action="/stranice/intervencija/List.xhtml" />
+                    <p:commandButton value="MedSestra" style="float: left"  action="/stranice/medsestra/List.xhtml" />
+                    <p:commandButton value="Pacijent" style="float: left"  action="/stranice/pacijent/List.xhtml" />
+                    <p:commandButton value="StavkaIntervencije" style="float: left"  action="/stranice/stavkaintervencije/List.xhtml" />
+                    <p:commandButton value="Termin" style="float: left"  action="/stranice/termin/List.xhtml" />
+                    <p:commandButton value="Zub" style="float: left"  action="/stranice/zub/List.xhtml" />
+                    <p:commandButton value="Logout" style="float: right"  action="#{mbLogin.logout()}" />
+
                 </h:form>
             </p:layoutUnit>
 
