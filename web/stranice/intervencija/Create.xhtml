@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IntervencijaCreateDlg" widgetVar="IntervencijaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateIntervencijaTitle}">
+            <h:form id="IntervencijaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{intervencijaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateIntervencijaLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{intervencijaController.selected.id}" title="#{bundle.CreateIntervencijaTitle_id}" required="true" requiredMessage="#{bundle.CreateIntervencijaRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateIntervencijaLabel_naziv}" for="naziv" />
+                        <p:inputText id="naziv" value="#{intervencijaController.selected.naziv}" title="#{bundle.CreateIntervencijaTitle_naziv}" />
+                        <p:outputLabel value="#{bundle.CreateIntervencijaLabel_datum}" for="datum" />
+                        <p:calendar id="datum" pattern="MM/dd/yyyy HH:mm:ss" value="#{intervencijaController.selected.datum}" title="#{bundle.EditIntervencijaTitle_datum}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateIntervencijaLabel_zub}" for="zub" />
+                        <p:selectOneMenu id="zub" value="#{intervencijaController.selected.zub}" >
+                            <f:selectItems value="#{zubController.itemsAvailableSelectOne}"
+                                           var="zubItem"
+                                           itemValue="#{zubItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateIntervencijaLabel_doktor}" for="doktor" />
+                        <p:selectOneMenu id="doktor" value="#{intervencijaController.selected.doktor}" >
+                            <f:selectItems value="#{doktorController.itemsAvailableSelectOne}"
+                                           var="doktorItem"
+                                           itemValue="#{doktorItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateIntervencijaLabel_pacijent}" for="pacijent" />
+                        <p:selectOneMenu id="pacijent" value="#{intervencijaController.selected.pacijent}" >
+                            <f:selectItems value="#{pacijentController.itemsAvailableSelectOne}"
+                                           var="pacijentItem"
+                                           itemValue="#{pacijentItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{intervencijaController.create}" value="#{bundle.Save}" update="display,:IntervencijaListForm:datalist,:growl" oncomplete="handleSubmit(args,'IntervencijaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IntervencijaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

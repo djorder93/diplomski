@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StavkaintervencijeEditDlg" widgetVar="StavkaintervencijeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditStavkaintervencijeTitle}">
+            <h:form id="StavkaintervencijeEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{stavkaintervencijeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditStavkaintervencijeLabel_stavkaintervencijePK_rbStavke}" for="stavkaintervencijePK_rbStavke" />
+                        <p:inputText id="stavkaintervencijePK_rbStavke" value="#{stavkaintervencijeController.selected.stavkaintervencijePK.rbStavke}" title="#{bundle.EditStavkaintervencijeTitle_stavkaintervencijePK_rbStavke}" required="true" requiredMessage="#{bundle.EditStavkaintervencijeRequiredMessage_stavkaintervencijePK_rbStavke}"/>
+                        <p:outputLabel value="#{bundle.EditStavkaintervencijeLabel_naziv}" for="naziv" />
+                        <p:inputText id="naziv" value="#{stavkaintervencijeController.selected.naziv}" title="#{bundle.EditStavkaintervencijeTitle_naziv}" />
+                        <p:outputLabel value="#{bundle.EditStavkaintervencijeLabel_kolicina}" for="kolicina" />
+                        <p:inputText id="kolicina" value="#{stavkaintervencijeController.selected.kolicina}" title="#{bundle.EditStavkaintervencijeTitle_kolicina}" />
+                        <p:outputLabel value="#{bundle.EditStavkaintervencijeLabel_intervencija}" for="intervencija" />
+                        <p:selectOneMenu id="intervencija" value="#{stavkaintervencijeController.selected.intervencija}" required="true" requiredMessage="#{bundle.EditStavkaintervencijeRequiredMessage_intervencija}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{intervencijaController.itemsAvailableSelectOne}"
+                                           var="intervencijaItem"
+                                           itemValue="#{intervencijaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stavkaintervencijeController.update}" value="#{bundle.Save}" update="display,:StavkaintervencijeListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StavkaintervencijeEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StavkaintervencijeEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

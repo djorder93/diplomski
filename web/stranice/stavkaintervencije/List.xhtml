@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/stranice/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListStavkaintervencijeTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="StavkaintervencijeListForm">
+                <p:panel header="#{bundle.ListStavkaintervencijeTitle}">
+                    <p:dataTable id="datalist" value="#{stavkaintervencijeController.items}" var="item"
+                                 selectionMode="single" selection="#{stavkaintervencijeController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.stavkaintervencijePK}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStavkaintervencijeTitle_stavkaintervencijePK_rbStavke}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.stavkaintervencijePK.rbStavke}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStavkaintervencijeTitle_naziv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.naziv}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStavkaintervencijeTitle_kolicina}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.kolicina}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStavkaintervencijeTitle_intervencija}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intervencija}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{stavkaintervencijeController.prepareCreate}" update=":StavkaintervencijeCreateForm" oncomplete="PF('StavkaintervencijeCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":StavkaintervencijeViewForm" oncomplete="PF('StavkaintervencijeViewDialog').show()" disabled="#{empty stavkaintervencijeController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":StavkaintervencijeEditForm" oncomplete="PF('StavkaintervencijeEditDialog').show()" disabled="#{empty stavkaintervencijeController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{stavkaintervencijeController.destroy}" update=":growl,datalist" disabled="#{empty stavkaintervencijeController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

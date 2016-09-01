@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MedsestraEditDlg" widgetVar="MedsestraEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMedsestraTitle}">
+            <h:form id="MedsestraEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{medsestraController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMedsestraLabel_sifraMedSestre}" for="sifraMedSestre" />
+                        <p:inputText id="sifraMedSestre" value="#{medsestraController.selected.sifraMedSestre}" title="#{bundle.EditMedsestraTitle_sifraMedSestre}" required="true" requiredMessage="#{bundle.EditMedsestraRequiredMessage_sifraMedSestre}"/>
+                        <p:outputLabel value="#{bundle.EditMedsestraLabel_jmbg}" for="jmbg" />
+                        <p:inputText id="jmbg" value="#{medsestraController.selected.jmbg}" title="#{bundle.EditMedsestraTitle_jmbg}" />
+                        <p:outputLabel value="#{bundle.EditMedsestraLabel_ime}" for="ime" />
+                        <p:inputText id="ime" value="#{medsestraController.selected.ime}" title="#{bundle.EditMedsestraTitle_ime}" />
+                        <p:outputLabel value="#{bundle.EditMedsestraLabel_prezime}" for="prezime" />
+                        <p:inputText id="prezime" value="#{medsestraController.selected.prezime}" title="#{bundle.EditMedsestraTitle_prezime}" />
+                        <p:outputLabel value="#{bundle.EditMedsestraLabel_korisnickoIme}" for="korisnickoIme" />
+                        <p:inputText id="korisnickoIme" value="#{medsestraController.selected.korisnickoIme}" title="#{bundle.EditMedsestraTitle_korisnickoIme}" />
+                        <p:outputLabel value="#{bundle.EditMedsestraLabel_lozinka}" for="lozinka" />
+                        <p:inputText id="lozinka" value="#{medsestraController.selected.lozinka}" title="#{bundle.EditMedsestraTitle_lozinka}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{medsestraController.update}" value="#{bundle.Save}" update="display,:MedsestraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MedsestraEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MedsestraEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

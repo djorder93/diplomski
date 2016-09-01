@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MedsestraViewDlg" widgetVar="MedsestraViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMedsestraTitle}">
+            <h:form id="MedsestraViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{medsestraController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMedsestraLabel_sifraMedSestre}"/>
+                        <h:outputText value="#{medsestraController.selected.sifraMedSestre}" title="#{bundle.ViewMedsestraTitle_sifraMedSestre}"/>
+                        <h:outputText value="#{bundle.ViewMedsestraLabel_jmbg}"/>
+                        <h:outputText value="#{medsestraController.selected.jmbg}" title="#{bundle.ViewMedsestraTitle_jmbg}"/>
+                        <h:outputText value="#{bundle.ViewMedsestraLabel_ime}"/>
+                        <h:outputText value="#{medsestraController.selected.ime}" title="#{bundle.ViewMedsestraTitle_ime}"/>
+                        <h:outputText value="#{bundle.ViewMedsestraLabel_prezime}"/>
+                        <h:outputText value="#{medsestraController.selected.prezime}" title="#{bundle.ViewMedsestraTitle_prezime}"/>
+                        <h:outputText value="#{bundle.ViewMedsestraLabel_korisnickoIme}"/>
+                        <h:outputText value="#{medsestraController.selected.korisnickoIme}" title="#{bundle.ViewMedsestraTitle_korisnickoIme}"/>
+                        <h:outputText value="#{bundle.ViewMedsestraLabel_lozinka}"/>
+                        <h:outputText value="#{medsestraController.selected.lozinka}" title="#{bundle.ViewMedsestraTitle_lozinka}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MedsestraViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

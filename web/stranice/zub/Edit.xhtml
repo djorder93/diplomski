@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ZubEditDlg" widgetVar="ZubEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditZubTitle}">
+            <h:form id="ZubEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{zubController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditZubLabel_zubPK_sifraZuba}" for="zubPK_sifraZuba" />
+                        <p:inputText id="zubPK_sifraZuba" value="#{zubController.selected.zubPK.sifraZuba}" title="#{bundle.EditZubTitle_zubPK_sifraZuba}" required="true" requiredMessage="#{bundle.EditZubRequiredMessage_zubPK_sifraZuba}"/>
+                        <p:outputLabel value="#{bundle.EditZubLabel_oznaka}" for="oznaka" />
+                        <p:inputText id="oznaka" value="#{zubController.selected.oznaka}" title="#{bundle.EditZubTitle_oznaka}" />
+                        <p:outputLabel value="#{bundle.EditZubLabel_stanjeZuba}" for="stanjeZuba" />
+                        <p:inputText id="stanjeZuba" value="#{zubController.selected.stanjeZuba}" title="#{bundle.EditZubTitle_stanjeZuba}" />
+                        <p:outputLabel value="#{bundle.EditZubLabel_pacijent1}" for="pacijent1" />
+                        <p:selectOneMenu id="pacijent1" value="#{zubController.selected.pacijent1}" required="true" requiredMessage="#{bundle.EditZubRequiredMessage_pacijent1}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{pacijentController.itemsAvailableSelectOne}"
+                                           var="pacijent1Item"
+                                           itemValue="#{pacijent1Item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{zubController.update}" value="#{bundle.Save}" update="display,:ZubListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ZubEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ZubEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
