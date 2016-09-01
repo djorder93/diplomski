@@ -68,6 +68,6 @@ public class MbLogin implements Serializable {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         session.setAttribute("logged", ms);
         session.invalidate();
-        return "/login.xhtml";
+        return "/index.xhtml";
     }
 }
