@@ -21,6 +21,48 @@
                         <h:outputText value="#{bundle.ViewDoktorLabel_prezime}"/>
                         <h:outputText value="#{doktorController.selected.prezime}" title="#{bundle.ViewDoktorTitle_prezime}"/>
                     </p:panelGrid>
+
+                    <p:tabView>
+                        <p:tab title="Intervencije">
+                            <p:dataTable var="intervencija" value="#{doktorController.selected.intervencijaList}">
+                                <p:column headerText="Naziv">
+                                    <h:outputText value="#{intervencija.naziv}" />
+                                </p:column>
+
+                                <p:column headerText="Datum">
+                                    <h:outputText value="#{intervencija.datum}" />
+                                </p:column>
+
+                                <p:column headerText="Oznaka zuba">
+                                    <h:outputText value="#{intervencija.zub}" />
+                                </p:column>
+
+                                <p:column headerText="Pacijent">
+                                    <h:outputText value="#{intervencija.pacijent}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Pacijenti">
+                            <p:dataTable var="pac" value="#{doktorController.selected.pacijentList}">
+
+                                <p:column headerText="JMBG">
+                                    <h:outputText value="#{pac.jmbg}" />
+                                </p:column>
+                                <p:column headerText="Ime">
+                                    <h:outputText value="#{pac.ime}" />
+                                </p:column>
+
+                                <p:column headerText="Prezime">
+                                    <h:outputText value="#{pac.prezime}" />
+                                </p:column>
+
+                                <p:column headerText="Telefon">
+                                    <h:outputText value="#{pac.telefon}" />
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:tab>
+                    </p:tabView>
                     <p:commandButton value="#{bundle.Close}" onclick="DoktorViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

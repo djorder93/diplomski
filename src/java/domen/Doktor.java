@@ -136,7 +136,7 @@ public class Doktor implements Serializable {
 
     @Override
     public String toString() {
-        return ime+" "+prezime;
+        return ime + " " + prezime;
     }
-    
+
 }
