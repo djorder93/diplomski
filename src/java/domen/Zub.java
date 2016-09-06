@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Zub.findAll", query = "SELECT z FROM Zub z"),
     @NamedQuery(name = "Zub.findBySifraZuba", query = "SELECT z FROM Zub z WHERE z.zubPK.sifraZuba = :sifraZuba"),
-    @NamedQuery(name = "Zub.findByPacijent", query = "SELECT z FROM Zub z WHERE z.zubPK.pacijent = :pacijent"),
+    @NamedQuery(name = "Zub.findByPacijent", query = "SELECT z FROM Zub z WHERE z.pacijent1 = :pacijent"),
     @NamedQuery(name = "Zub.findByOznaka", query = "SELECT z FROM Zub z WHERE z.oznaka = :oznaka"),
     @NamedQuery(name = "Zub.findByStanjeZuba", query = "SELECT z FROM Zub z WHERE z.stanjeZuba = :stanjeZuba")})
 public class Zub implements Serializable {
@@ -45,10 +45,10 @@ public class Zub implements Serializable {
     @Size(max = 100)
     @Column(name = "stanjeZuba")
     private String stanjeZuba;
-    @OneToMany(mappedBy = "zub", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zub", fetch = FetchType.EAGER)
     private List<Intervencija> intervencijaList;
     @JoinColumn(name = "pacijent", referencedColumnName = "sifrapacijenta", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Pacijent pacijent1;
 
     public Zub() {

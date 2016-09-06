@@ -12,8 +12,6 @@
             <h:form id="PacijentCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pacijentController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePacijentLabel_sifrapacijenta}" for="sifrapacijenta" />
-                        <p:inputText id="sifrapacijenta" value="#{pacijentController.selected.sifrapacijenta}" title="#{bundle.CreatePacijentTitle_sifrapacijenta}" required="true" requiredMessage="#{bundle.CreatePacijentRequiredMessage_sifrapacijenta}"/>
                         <p:outputLabel value="#{bundle.CreatePacijentLabel_jmbg}" for="jmbg" />
                         <p:inputText id="jmbg" value="#{pacijentController.selected.jmbg}" title="#{bundle.CreatePacijentTitle_jmbg}" />
                         <p:outputLabel value="#{bundle.CreatePacijentLabel_ime}" for="ime" />
@@ -23,19 +21,15 @@
                         <p:outputLabel value="#{bundle.CreatePacijentLabel_telefon}" for="telefon" />
                         <p:inputText id="telefon" value="#{pacijentController.selected.telefon}" title="#{bundle.CreatePacijentTitle_telefon}" />
                         <p:outputLabel value="#{bundle.CreatePacijentLabel_datumrodjenja}" for="datumrodjenja" />
-                        <p:calendar id="datumrodjenja" pattern="MM/dd/yyyy" value="#{pacijentController.selected.datumrodjenja}" title="#{bundle.EditPacijentTitle_datumrodjenja}"  showOn="button"/>
+                        <p:calendar id="datumrodjenja" pattern="dd/MM/yyyy" value="#{pacijentController.selected.datumrodjenja}" title="#{bundle.EditPacijentTitle_datumrodjenja}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreatePacijentLabel_sifradoktora}" for="sifradoktora" />
                         <p:selectOneMenu id="sifradoktora" value="#{pacijentController.selected.sifradoktora}" >
                             <f:selectItems value="#{doktorController.itemsAvailableSelectOne}"
                                            var="sifradoktoraItem"
                                            itemValue="#{sifradoktoraItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatePacijentLabel_siframedsestre}" for="siframedsestre" />
-                        <p:selectOneMenu id="siframedsestre" value="#{pacijentController.selected.siframedsestre}" >
-                            <f:selectItems value="#{medsestraController.itemsAvailableSelectOne}"
-                                           var="siframedsestreItem"
-                                           itemValue="#{siframedsestreItem}"/>
-                        </p:selectOneMenu>
+                       
+                       
                     </p:panelGrid>
                     <p:commandButton actionListener="#{pacijentController.create}" value="#{bundle.Save}" update="display,:PacijentListForm:datalist,:growl" oncomplete="handleSubmit(args,'PacijentCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PacijentCreateDialog.hide()"/>

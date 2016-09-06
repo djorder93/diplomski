@@ -62,20 +62,14 @@
                                 <h:outputText value="#{bundle.ListPacijentTitle_datumrodjenja}"/>
                             </f:facet>
                             <h:outputText value="#{item.datumrodjenja}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPacijentTitle_sifradoktora}"/>
                             </f:facet>
-                            <h:outputText value="#{item.sifradoktora}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacijentTitle_siframedsestre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.siframedsestre}"/>
+                            <h:outputText value="#{item.sifradoktora.toString()}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pacijentController.prepareCreate}" update=":PacijentCreateForm" oncomplete="PF('PacijentCreateDialog').show()"/>

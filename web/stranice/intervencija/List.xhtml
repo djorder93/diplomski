@@ -51,19 +51,19 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIntervencijaTitle_zub}"/>
                             </f:facet>
-                            <h:outputText value="#{item.zub}"/>
+                            <h:outputText value="#{item.zub.toString()}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIntervencijaTitle_doktor}"/>
                             </f:facet>
-                            <h:outputText value="#{item.doktor}"/>
+                            <h:outputText value="#{item.doktor.toString()}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIntervencijaTitle_pacijent}"/>
                             </f:facet>
-                            <h:outputText value="#{item.pacijent}"/>
+                            <h:outputText value="#{item.pacijent.toString()}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{intervencijaController.prepareCreate}" update=":IntervencijaCreateForm" oncomplete="PF('IntervencijaCreateDialog').show()"/>

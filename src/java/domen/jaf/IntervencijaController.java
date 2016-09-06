@@ -1,6 +1,8 @@
 package domen.jaf;
 
 import domen.Intervencija;
+import domen.Pacijent;
+import domen.Zub;
 import domen.jaf.util.JsfUtil;
 import domen.jaf.util.JsfUtil.PersistAction;
 import domen.beans.IntervencijaFacade;
@@ -18,6 +20,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 @Named("intervencijaController")
 @SessionScoped
@@ -27,6 +32,29 @@ public class IntervencijaController implements Serializable {
     private domen.beans.IntervencijaFacade ejbFacade;
     private List<Intervencija> items = null;
     private Intervencija selected;
+    private List<Pacijent> pacijenti;
+    private List<Zub> zubi;
+    
+
+    public List<Pacijent> getPacijenti() {
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
+        EntityManager em = emf.createEntityManager();
+
+        pacijenti = em.createNamedQuery("Pacijent.findAll", Pacijent.class).getResultList();
+        em.close();
+        emf.close();
+        return pacijenti;
+    }
+
+    public List<Zub> getZubi() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
+        EntityManager em = emf.createEntityManager();
+
+        zubi = em.createNamedQuery("Zub.findByPacijent", Zub.class).setParameter("pacijent", selected.getPacijent()).getResultList();
+        em.close();
+        emf.close();
+        return zubi;
+    }
 
     public IntervencijaController() {
     }

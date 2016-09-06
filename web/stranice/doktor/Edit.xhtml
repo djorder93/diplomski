@@ -12,8 +12,6 @@
             <h:form id="DoktorEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{doktorController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditDoktorLabel_sifradoktora}" for="sifradoktora" />
-                        <p:inputText id="sifradoktora" value="#{doktorController.selected.sifradoktora}" title="#{bundle.EditDoktorTitle_sifradoktora}" required="true" requiredMessage="#{bundle.EditDoktorRequiredMessage_sifradoktora}"/>
                         <p:outputLabel value="#{bundle.EditDoktorLabel_jmbg}" for="jmbg" />
                         <p:inputText id="jmbg" value="#{doktorController.selected.jmbg}" title="#{bundle.EditDoktorTitle_jmbg}" />
                         <p:outputLabel value="#{bundle.EditDoktorLabel_ime}" for="ime" />

@@ -12,18 +12,10 @@
             <h:form id="IntervencijaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{intervencijaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateIntervencijaLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{intervencijaController.selected.id}" title="#{bundle.CreateIntervencijaTitle_id}" required="true" requiredMessage="#{bundle.CreateIntervencijaRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateIntervencijaLabel_naziv}" for="naziv" />
                         <p:inputText id="naziv" value="#{intervencijaController.selected.naziv}" title="#{bundle.CreateIntervencijaTitle_naziv}" />
                         <p:outputLabel value="#{bundle.CreateIntervencijaLabel_datum}" for="datum" />
                         <p:calendar id="datum" pattern="MM/dd/yyyy HH:mm:ss" value="#{intervencijaController.selected.datum}" title="#{bundle.EditIntervencijaTitle_datum}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateIntervencijaLabel_zub}" for="zub" />
-                        <p:selectOneMenu id="zub" value="#{intervencijaController.selected.zub}" >
-                            <f:selectItems value="#{zubController.itemsAvailableSelectOne}"
-                                           var="zubItem"
-                                           itemValue="#{zubItem}"/>
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateIntervencijaLabel_doktor}" for="doktor" />
                         <p:selectOneMenu id="doktor" value="#{intervencijaController.selected.doktor}" >
                             <f:selectItems value="#{doktorController.itemsAvailableSelectOne}"
@@ -31,10 +23,17 @@
                                            itemValue="#{doktorItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateIntervencijaLabel_pacijent}" for="pacijent" />
-                        <p:selectOneMenu id="pacijent" value="#{intervencijaController.selected.pacijent}" >
-                            <f:selectItems value="#{pacijentController.itemsAvailableSelectOne}"
+                        <p:selectOneMenu id="pacijent" value="#{intervencijaController.selected.pacijent}"  >
+                            <p:ajax listener="#{intervencijaController.getZubi()}" update="zub"/>
+                            <f:selectItem itemLabel="Odaberi pacijenta" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{intervencijaController.pacijenti}"
                                            var="pacijentItem"
                                            itemValue="#{pacijentItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="zub" value="Oznaka zuba: " />
+                        <p:selectOneMenu id="zub" value="#{intervencijaController.selected.zub}" >
+                            <f:selectItem itemLabel="Odaberi oznaku" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{intervencijaController.zubi}" />
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{intervencijaController.create}" value="#{bundle.Save}" update="display,:IntervencijaListForm:datalist,:growl" oncomplete="handleSubmit(args,'IntervencijaCreateDialog');"/>

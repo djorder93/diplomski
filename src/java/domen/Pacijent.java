@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "pacijent")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Pacijent.list", query = "SELECT p FROM Pacijent p where p.sifradoktora= :doktor"),
     @NamedQuery(name = "Pacijent.findAll", query = "SELECT p FROM Pacijent p"),
     @NamedQuery(name = "Pacijent.findBySifrapacijenta", query = "SELECT p FROM Pacijent p WHERE p.sifrapacijenta = :sifrapacijenta"),
     @NamedQuery(name = "Pacijent.findByJmbg", query = "SELECT p FROM Pacijent p WHERE p.jmbg = :jmbg"),
@@ -67,16 +71,16 @@ public class Pacijent implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date datumrodjenja;
     @JoinColumn(name = "sifradoktora", referencedColumnName = "sifradoktora")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Doktor sifradoktora;
     @JoinColumn(name = "siframedsestre", referencedColumnName = "sifraMedSestre")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Medsestra siframedsestre;
-    @OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pacijent", fetch = FetchType.EAGER)
     private List<Intervencija> intervencijaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacijent1", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacijent1", fetch = FetchType.EAGER)
     private List<Zub> zubList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacijent1", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacijent1", fetch = FetchType.EAGER)
     private List<Termin> terminList;
 
     public Pacijent() {
@@ -152,6 +156,12 @@ public class Pacijent implements Serializable {
 
     @XmlTransient
     public List<Intervencija> getIntervencijaList() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
+        EntityManager em = emf.createEntityManager();
+
+        intervencijaList = em.createNamedQuery("Intervencija.listForPacijent", Intervencija.class).setParameter("pacijent", this).getResultList();
+        em.close();
+        emf.close();
         return intervencijaList;
     }
 
@@ -161,6 +171,12 @@ public class Pacijent implements Serializable {
 
     @XmlTransient
     public List<Zub> getZubList() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
+        EntityManager em = emf.createEntityManager();
+
+        zubList = em.createNamedQuery("Zub.findByPacijent", Zub.class).setParameter("pacijent", this).getResultList();
+        em.close();
+        emf.close();
         return zubList;
     }
 
@@ -170,6 +186,12 @@ public class Pacijent implements Serializable {
 
     @XmlTransient
     public List<Termin> getTerminList() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
+        EntityManager em = emf.createEntityManager();
+
+        terminList = em.createNamedQuery("Termin.findByPacijent", Termin.class).setParameter("pacijent", this).getResultList();
+        em.close();
+        emf.close();
         return terminList;
     }
 
@@ -199,7 +221,7 @@ public class Pacijent implements Serializable {
 
     @Override
     public String toString() {
-        return ime+" "+prezime;
+        return ime + " " + prezime;
     }
-    
+
 }

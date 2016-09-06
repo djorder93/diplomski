@@ -12,8 +12,6 @@
             <h:form id="DoktorViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{doktorController.selected != null}">
-                        <h:outputText value="#{bundle.ViewDoktorLabel_sifradoktora}"/>
-                        <h:outputText value="#{doktorController.selected.sifradoktora}" title="#{bundle.ViewDoktorTitle_sifradoktora}"/>
                         <h:outputText value="#{bundle.ViewDoktorLabel_jmbg}"/>
                         <h:outputText value="#{doktorController.selected.jmbg}" title="#{bundle.ViewDoktorTitle_jmbg}"/>
                         <h:outputText value="#{bundle.ViewDoktorLabel_ime}"/>
@@ -24,7 +22,9 @@
 
                     <p:tabView>
                         <p:tab title="Intervencije">
-                            <p:dataTable var="intervencija" value="#{doktorController.selected.intervencijaList}">
+                            <p:dataTable var="intervencija" paginator="true" rowKey="#{intervencija.id}"
+                                         rows="5"
+                                         rowsPerPageTemplate="5,10,15,20,25" value="#{doktorController.selected.intervencijaList}">
                                 <p:column headerText="Naziv">
                                     <h:outputText value="#{intervencija.naziv}" />
                                 </p:column>
@@ -34,16 +34,18 @@
                                 </p:column>
 
                                 <p:column headerText="Oznaka zuba">
-                                    <h:outputText value="#{intervencija.zub}" />
+                                    <h:outputText value="#{intervencija.zub.toString()}" />
                                 </p:column>
 
                                 <p:column headerText="Pacijent">
-                                    <h:outputText value="#{intervencija.pacijent}" />
+                                    <h:outputText value="#{intervencija.pacijent.toString()}" />
                                 </p:column>
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Pacijenti">
-                            <p:dataTable var="pac" value="#{doktorController.selected.pacijentList}">
+                            <p:dataTable var="pac" paginator="true" rowKey="#{pac.sifrapacijenta}"
+                                         rows="5"
+                                         rowsPerPageTemplate="5,10,15,20,25" value="#{doktorController.selected.pacijentList}">
 
                                 <p:column headerText="JMBG">
                                     <h:outputText value="#{pac.jmbg}" />

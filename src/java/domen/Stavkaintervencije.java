@@ -42,7 +42,7 @@ public class Stavkaintervencije implements Serializable {
     @Column(name = "kolicina")
     private Integer kolicina;
     @JoinColumn(name = "sifraintervencije", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Intervencija intervencija;
 
     public Stavkaintervencije() {

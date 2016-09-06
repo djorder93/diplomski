@@ -12,8 +12,6 @@
             <h:form id="DoktorCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{doktorController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDoktorLabel_sifradoktora}" for="sifradoktora" />
-                        <p:inputText id="sifradoktora" value="#{doktorController.selected.sifradoktora}" title="#{bundle.CreateDoktorTitle_sifradoktora}" required="true" requiredMessage="#{bundle.CreateDoktorRequiredMessage_sifradoktora}"/>
                         <p:outputLabel value="#{bundle.CreateDoktorLabel_jmbg}" for="jmbg" />
                         <p:inputText id="jmbg" value="#{doktorController.selected.jmbg}" title="#{bundle.CreateDoktorTitle_jmbg}" />
                         <p:outputLabel value="#{bundle.CreateDoktorLabel_ime}" for="ime" />

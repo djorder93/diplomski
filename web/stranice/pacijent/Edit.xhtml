@@ -12,8 +12,6 @@
             <h:form id="PacijentEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pacijentController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPacijentLabel_sifrapacijenta}" for="sifrapacijenta" />
-                        <p:inputText id="sifrapacijenta" value="#{pacijentController.selected.sifrapacijenta}" title="#{bundle.EditPacijentTitle_sifrapacijenta}" required="true" requiredMessage="#{bundle.EditPacijentRequiredMessage_sifrapacijenta}"/>
                         <p:outputLabel value="#{bundle.EditPacijentLabel_jmbg}" for="jmbg" />
                         <p:inputText id="jmbg" value="#{pacijentController.selected.jmbg}" title="#{bundle.EditPacijentTitle_jmbg}" />
                         <p:outputLabel value="#{bundle.EditPacijentLabel_ime}" for="ime" />

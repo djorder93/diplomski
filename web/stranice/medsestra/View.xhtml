@@ -12,8 +12,6 @@
             <h:form id="MedsestraViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{medsestraController.selected != null}">
-                        <h:outputText value="#{bundle.ViewMedsestraLabel_sifraMedSestre}"/>
-                        <h:outputText value="#{medsestraController.selected.sifraMedSestre}" title="#{bundle.ViewMedsestraTitle_sifraMedSestre}"/>
                         <h:outputText value="#{bundle.ViewMedsestraLabel_jmbg}"/>
                         <h:outputText value="#{medsestraController.selected.jmbg}" title="#{bundle.ViewMedsestraTitle_jmbg}"/>
                         <h:outputText value="#{bundle.ViewMedsestraLabel_ime}"/>

@@ -62,9 +62,9 @@ public class Medsestra implements Serializable {
     @Size(max = 50)
     @Column(name = "lozinka")
     private String lozinka;
-    @OneToMany(mappedBy = "siframedsestre", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "siframedsestre", fetch = FetchType.EAGER)
     private List<Pacijent> pacijentList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "medsestra", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "medsestra", fetch = FetchType.EAGER)
     private List<Termin> terminList;
 
     public Medsestra() {

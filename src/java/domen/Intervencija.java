@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "intervencija")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Intervencija.listForPacijent", query = "SELECT i FROM Intervencija i where i.pacijent= :pacijent"),
+    @NamedQuery(name = "Intervencija.listForDoktor", query = "SELECT i FROM Intervencija i where i.doktor= :doktor"),
     @NamedQuery(name = "Intervencija.findAll", query = "SELECT i FROM Intervencija i"),
     @NamedQuery(name = "Intervencija.findById", query = "SELECT i FROM Intervencija i WHERE i.id = :id"),
     @NamedQuery(name = "Intervencija.findByNaziv", query = "SELECT i FROM Intervencija i WHERE i.naziv = :naziv"),
@@ -58,15 +60,15 @@ public class Intervencija implements Serializable {
     @JoinColumns({
         @JoinColumn(name = "zub", referencedColumnName = "sifraZuba"),
         @JoinColumn(name = "pac", referencedColumnName = "pacijent")})
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Zub zub;
     @JoinColumn(name = "doktor", referencedColumnName = "sifradoktora")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Doktor doktor;
     @JoinColumn(name = "pacijent", referencedColumnName = "sifrapacijenta")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Pacijent pacijent;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "intervencija", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "intervencija", fetch = FetchType.EAGER)
     private List<Stavkaintervencije> stavkaintervencijeList;
 
     public Intervencija() {
@@ -101,6 +103,7 @@ public class Intervencija implements Serializable {
     }
 
     public Zub getZub() {
+        
         return zub;
     }
 

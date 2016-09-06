@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Termin.findAll", query = "SELECT t FROM Termin t"),
     @NamedQuery(name = "Termin.findByMedSestra", query = "SELECT t FROM Termin t WHERE t.terminPK.medSestra = :medSestra"),
-    @NamedQuery(name = "Termin.findByPacijent", query = "SELECT t FROM Termin t WHERE t.terminPK.pacijent = :pacijent"),
+    @NamedQuery(name = "Termin.findByPacijent", query = "SELECT t FROM Termin t WHERE t.pacijent1 = :pacijent"),
     @NamedQuery(name = "Termin.findByDatum", query = "SELECT t FROM Termin t WHERE t.terminPK.datum = :datum")})
 public class Termin implements Serializable {
 
@@ -35,10 +35,10 @@ public class Termin implements Serializable {
     @EmbeddedId
     protected TerminPK terminPK;
     @JoinColumn(name = "pacijent", referencedColumnName = "sifrapacijenta", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Pacijent pacijent1;
     @JoinColumn(name = "medSestra", referencedColumnName = "sifraMedSestre", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Medsestra medsestra;
 
     public Termin() {

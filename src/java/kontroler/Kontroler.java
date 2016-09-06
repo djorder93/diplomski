@@ -30,16 +30,11 @@ public class Kontroler {
         return instanca;
     }
 
-    public Medsestra login(Medsestra ms) throws Exception {
+    public Medsestra login(Medsestra ms)  {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
         EntityManager em = emf.createEntityManager();
-
-        Medsestra meds = em.createNamedQuery("Medsestra.login", Medsestra.class).setParameter("korisnickoIme", ms.getKorisnickoIme()).setParameter("lozinka", ms.getLozinka()).getSingleResult();
-
-        if ((meds == null) || (!meds.getLozinka().equals(ms.getLozinka()))) {
-            throw new Exception("Korisnik nije autentifikovan. Pogresno korisnicko ime i/ili sifra");
-        }
-
+        Medsestra meds;
+             meds = em.createNamedQuery("Medsestra.login", Medsestra.class).setParameter("korisnickoIme", ms.getKorisnickoIme()).setParameter("lozinka", ms.getLozinka()).getSingleResult();
         em.close();
         emf.close();
 

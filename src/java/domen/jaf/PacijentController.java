@@ -121,7 +121,7 @@ public class PacijentController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Pacijent.class)
+    @FacesConverter(forClass = Pacijent.class )
     public static class PacijentControllerConverter implements Converter {
 
         @Override

@@ -12,8 +12,6 @@
             <h:form id="IntervencijaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{intervencijaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewIntervencijaLabel_id}"/>
-                        <h:outputText value="#{intervencijaController.selected.id}" title="#{bundle.ViewIntervencijaTitle_id}"/>
                         <h:outputText value="#{bundle.ViewIntervencijaLabel_naziv}"/>
                         <h:outputText value="#{intervencijaController.selected.naziv}" title="#{bundle.ViewIntervencijaTitle_naziv}"/>
                         <h:outputText value="#{bundle.ViewIntervencijaLabel_datum}"/>
@@ -21,11 +19,11 @@
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewIntervencijaLabel_zub}"/>
-                        <h:outputText value="#{intervencijaController.selected.zub}" title="#{bundle.ViewIntervencijaTitle_zub}"/>
+                        <h:outputText value="#{intervencijaController.selected.zub.toString()}" title="#{bundle.ViewIntervencijaTitle_zub}"/>
                         <h:outputText value="#{bundle.ViewIntervencijaLabel_doktor}"/>
-                        <h:outputText value="#{intervencijaController.selected.doktor}" title="#{bundle.ViewIntervencijaTitle_doktor}"/>
+                        <h:outputText value="#{intervencijaController.selected.doktor.toString()}" title="#{bundle.ViewIntervencijaTitle_doktor}"/>
                         <h:outputText value="#{bundle.ViewIntervencijaLabel_pacijent}"/>
-                        <h:outputText value="#{intervencijaController.selected.pacijent}" title="#{bundle.ViewIntervencijaTitle_pacijent}"/>
+                        <h:outputText value="#{intervencijaController.selected.pacijent.toString()}" title="#{bundle.ViewIntervencijaTitle_pacijent}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="IntervencijaViewDialog.hide()"/>
                 </h:panelGroup>

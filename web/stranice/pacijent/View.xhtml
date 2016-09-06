@@ -12,8 +12,6 @@
             <h:form id="PacijentViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pacijentController.selected != null}">
-                        <h:outputText value="#{bundle.ViewPacijentLabel_sifrapacijenta}"/>
-                        <h:outputText value="#{pacijentController.selected.sifrapacijenta}" title="#{bundle.ViewPacijentTitle_sifrapacijenta}"/>
                         <h:outputText value="#{bundle.ViewPacijentLabel_jmbg}"/>
                         <h:outputText value="#{pacijentController.selected.jmbg}" title="#{bundle.ViewPacijentTitle_jmbg}"/>
                         <h:outputText value="#{bundle.ViewPacijentLabel_ime}"/>
@@ -24,13 +22,58 @@
                         <h:outputText value="#{pacijentController.selected.telefon}" title="#{bundle.ViewPacijentTitle_telefon}"/>
                         <h:outputText value="#{bundle.ViewPacijentLabel_datumrodjenja}"/>
                         <h:outputText value="#{pacijentController.selected.datumrodjenja}" title="#{bundle.ViewPacijentTitle_datumrodjenja}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewPacijentLabel_sifradoktora}"/>
                         <h:outputText value="#{pacijentController.selected.sifradoktora}" title="#{bundle.ViewPacijentTitle_sifradoktora}"/>
                         <h:outputText value="#{bundle.ViewPacijentLabel_siframedsestre}"/>
                         <h:outputText value="#{pacijentController.selected.siframedsestre}" title="#{bundle.ViewPacijentTitle_siframedsestre}"/>
                     </p:panelGrid>
+                    <p:tabView>
+                        <p:tab title="Intervencije">
+                            <p:dataTable var="intervencija" paginator="true" rowKey="#{intervencija.id}"
+                                         rows="5"
+                                         rowsPerPageTemplate="5,10,15,20,25" value="#{pacijentController.selected.intervencijaList}">
+                                <p:column headerText="Naziv">
+                                    <h:outputText value="#{intervencija.naziv}" />
+                                </p:column>
+
+                                <p:column headerText="Datum">
+                                    <h:outputText value="#{intervencija.datum}" />
+                                </p:column>
+
+                                <p:column headerText="Oznaka zuba">
+                                    <h:outputText value="#{intervencija.zub.toString()}" />
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Termini">
+                            <p:dataTable var="term" paginator="true" rowKey="#{term.terminPK}"
+                                         rows="5"
+                                         rowsPerPageTemplate="5,10,15,20,25" value="#{pacijentController.selected.terminList}">
+
+                                <p:column headerText="Datum">
+                                    <h:outputText value="#{term.terminPK.datum}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Zubi">
+                            <p:dataTable var="z" paginator="true" rowKey="#{z.zubPK}"
+                                         rows="5"
+                                         rowsPerPageTemplate="5,10,15,20,25" value="#{pacijentController.selected.zubList}">
+
+                                <p:column headerText="Oznaka">
+                                    <h:outputText value="#{z.oznaka}" />
+                                </p:column>
+                                <p:column headerText="Stanje zuba">
+                                    <h:outputText value="#{z.stanjeZuba}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                    </p:tabView>
                     <p:commandButton value="#{bundle.Close}" onclick="PacijentViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

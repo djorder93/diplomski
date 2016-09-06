@@ -12,8 +12,6 @@
             <h:form id="MedsestraEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{medsestraController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditMedsestraLabel_sifraMedSestre}" for="sifraMedSestre" />
-                        <p:inputText id="sifraMedSestre" value="#{medsestraController.selected.sifraMedSestre}" title="#{bundle.EditMedsestraTitle_sifraMedSestre}" required="true" requiredMessage="#{bundle.EditMedsestraRequiredMessage_sifraMedSestre}"/>
                         <p:outputLabel value="#{bundle.EditMedsestraLabel_jmbg}" for="jmbg" />
                         <p:inputText id="jmbg" value="#{medsestraController.selected.jmbg}" title="#{bundle.EditMedsestraTitle_jmbg}" />
                         <p:outputLabel value="#{bundle.EditMedsestraLabel_ime}" for="ime" />
