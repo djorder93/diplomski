@@ -22,6 +22,7 @@
                                  rowKey="#{item.terminPK}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 reflow="true"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
@@ -39,7 +40,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTerminTitle_pacijent1}"/>
                             </f:facet>
-                            <h:outputText value="#{item.pacijent1}"/>
+                            <h:outputText value="#{item.pacijent1.toString()}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{terminController.prepareCreate}" update=":TerminCreateForm" oncomplete="PF('TerminCreateDialog').show()"/>

@@ -143,14 +143,14 @@ public class ZubController implements Serializable {
             domen.ZubPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
             key = new domen.ZubPK();
-            key.setSifraZuba(Integer.parseInt(values[0]));
+            key.setOznaka(Integer.parseInt(values[0]));
             key.setPacijent(Integer.parseInt(values[1]));
             return key;
         }
 
         String getStringKey(domen.ZubPK value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value.getSifraZuba());
+            sb.append(value.getOznaka());
             sb.append(SEPARATOR);
             sb.append(value.getPacijent());
             return sb.toString();

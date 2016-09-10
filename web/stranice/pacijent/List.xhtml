@@ -15,57 +15,70 @@
 
         <ui:define name="body">
             <h:form id="PacijentListForm">
-                <p:panel header="#{bundle.ListPacijentTitle}">
+                <p:panel>
+                    <f:facet name="header">
+                        <p:commandButton id="toggler" type="button" value="Columns"  icon="ui-icon-calculator" />
+                        <p:columnToggler datasource="datalist" trigger="toggler" />
+                    </f:facet>
                     <p:dataTable id="datalist" value="#{pacijentController.items}" var="item"
                                  selectionMode="single" selection="#{pacijentController.selected}"
                                  paginator="true"
                                  rowKey="#{item.sifrapacijenta}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 reflow="true"
+                                 widgetVar="pacijenti"
+                                 emptyMessage="No cars found with given criteria"
+                                 
                                  >
-
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('pacijenti').filter()" style="width:150px" placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column filterBy="#{item.sifrapacijenta}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPacijentTitle_sifrapacijenta}"/>
                             </f:facet>
                             <h:outputText value="#{item.sifrapacijenta}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.jmbg}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPacijentTitle_jmbg}"/>
                             </f:facet>
                             <h:outputText value="#{item.jmbg}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.ime}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPacijentTitle_ime}"/>
                             </f:facet>
                             <h:outputText value="#{item.ime}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.prezime}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPacijentTitle_prezime}"/>
                             </f:facet>
                             <h:outputText value="#{item.prezime}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.telefon}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPacijentTitle_telefon}"/>
                             </f:facet>
                             <h:outputText value="#{item.telefon}"/>
                         </p:column>
-                        <p:column>
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPacijentTitle_datumrodjenja}"/>
                             </f:facet>
                             <h:outputText value="#{item.datumrodjenja}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
+                        </p:column >
+                        <p:column filterBy="#{item.sifradoktora}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPacijentTitle_sifradoktora}"/>
                             </f:facet>
@@ -73,9 +86,9 @@
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pacijentController.prepareCreate}" update=":PacijentCreateForm" oncomplete="PF('PacijentCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PacijentViewForm" oncomplete="PF('PacijentViewDialog').show()" disabled="#{empty pacijentController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PacijentEditForm" oncomplete="PF('PacijentEditDialog').show()" disabled="#{empty pacijentController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pacijentController.destroy}" update=":growl,datalist" disabled="#{empty pacijentController.selected}"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PacijentViewForm" oncomplete="PF('PacijentViewDialog').show()" />
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PacijentEditForm" oncomplete="PF('PacijentEditDialog').show()" />
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pacijentController.destroy}" update=":growl,datalist" />
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

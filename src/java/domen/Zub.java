@@ -30,18 +30,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Zub.findAll", query = "SELECT z FROM Zub z"),
-    @NamedQuery(name = "Zub.findBySifraZuba", query = "SELECT z FROM Zub z WHERE z.zubPK.sifraZuba = :sifraZuba"),
+    @NamedQuery(name = "Zub.findBySifraZuba", query = "SELECT z FROM Zub z WHERE z.zubPK.oznaka = :oznaka"),
     @NamedQuery(name = "Zub.findByPacijent", query = "SELECT z FROM Zub z WHERE z.pacijent1 = :pacijent"),
-    @NamedQuery(name = "Zub.findByOznaka", query = "SELECT z FROM Zub z WHERE z.oznaka = :oznaka"),
     @NamedQuery(name = "Zub.findByStanjeZuba", query = "SELECT z FROM Zub z WHERE z.stanjeZuba = :stanjeZuba")})
 public class Zub implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ZubPK zubPK;
-    @Size(max = 15)
-    @Column(name = "oznaka")
-    private String oznaka;
     @Size(max = 100)
     @Column(name = "stanjeZuba")
     private String stanjeZuba;
@@ -52,6 +48,8 @@ public class Zub implements Serializable {
     private Pacijent pacijent1;
 
     public Zub() {
+        zubPK = new ZubPK();
+                
     }
 
     public Zub(ZubPK zubPK) {
@@ -70,13 +68,6 @@ public class Zub implements Serializable {
         this.zubPK = zubPK;
     }
 
-    public String getOznaka() {
-        return oznaka;
-    }
-
-    public void setOznaka(String oznaka) {
-        this.oznaka = oznaka;
-    }
 
     public String getStanjeZuba() {
         return stanjeZuba;
@@ -125,7 +116,7 @@ public class Zub implements Serializable {
 
     @Override
     public String toString() {
-        return oznaka;
+        return zubPK.toString();
     }
     
 }

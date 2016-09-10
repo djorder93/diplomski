@@ -58,7 +58,7 @@ public class Intervencija implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datum;
     @JoinColumns({
-        @JoinColumn(name = "zub", referencedColumnName = "sifraZuba"),
+        @JoinColumn(name = "zub", referencedColumnName = "oznaka"),
         @JoinColumn(name = "pac", referencedColumnName = "pacijent")})
     @ManyToOne(fetch = FetchType.EAGER)
     private Zub zub;

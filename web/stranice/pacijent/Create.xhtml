@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="PacijentCreateDlg" widgetVar="PacijentCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePacijentTitle}">
+        <p:dialog id="PacijentCreateDlg" widgetVar="PacijentCreateDialog" modal="true" position="center top" resizable="false" appendTo="@(body)" header="#{bundle.CreatePacijentTitle}">
             <h:form id="PacijentCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pacijentController.selected != null}">
@@ -29,9 +29,9 @@
                                            itemValue="#{sifradoktoraItem}"/>
                         </p:selectOneMenu>
                        
-                       
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{pacijentController.create}" value="#{bundle.Save}" update="display,:PacijentListForm:datalist,:growl" oncomplete="handleSubmit(args,'PacijentCreateDialog');"/>
+
+                    <p:commandButton actionListener="#{pacijentController.create()}" value="#{bundle.Save}" update="display,:PacijentListForm:datalist,:growl" oncomplete="handleSubmit(args,'PacijentCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PacijentCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

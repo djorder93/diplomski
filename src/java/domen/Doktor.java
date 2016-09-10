@@ -10,8 +10,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,11 +17,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import kontroler.Kontroler;
 
 /**
  *
@@ -101,13 +99,7 @@ public class Doktor implements Serializable {
 
     @XmlTransient
     public List<Pacijent> getPacijentList() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
-        EntityManager em = emf.createEntityManager();
-
-        pacijentList = em.createNamedQuery("Pacijent.list", Pacijent.class).setParameter("doktor", this).getResultList();
-        em.close();
-        emf.close();
-        return pacijentList;
+        return Kontroler.vratiInstancu().getPacijentList(this);
     }
 
     public void setPacijentList(List<Pacijent> pacijentList) {
@@ -116,13 +108,7 @@ public class Doktor implements Serializable {
 
     @XmlTransient
     public List<Intervencija> getIntervencijaList() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
-        EntityManager em = emf.createEntityManager();
-
-        intervencijaList = em.createNamedQuery("Intervencija.listForDoktor", Intervencija.class).setParameter("doktor", this).getResultList();
-        em.close();
-        emf.close();
-        return intervencijaList;
+        return Kontroler.vratiInstancu().getIntervencijaList(this);
     }
 
     public void setIntervencijaList(List<Intervencija> intervencijaList) {

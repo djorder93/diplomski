@@ -20,7 +20,7 @@
                         <h:outputText value="#{doktorController.selected.prezime}" title="#{bundle.ViewDoktorTitle_prezime}"/>
                     </p:panelGrid>
 
-                    <p:tabView>
+                    <p:tabView onTabShow="PF('DoktorViewDialog').initPosition();" dynamic="true">
                         <p:tab title="Intervencije">
                             <p:dataTable var="intervencija" paginator="true" rowKey="#{intervencija.id}"
                                          rows="5"

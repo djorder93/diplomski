@@ -25,11 +25,11 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewPacijentLabel_sifradoktora}"/>
-                        <h:outputText value="#{pacijentController.selected.sifradoktora}" title="#{bundle.ViewPacijentTitle_sifradoktora}"/>
+                        <h:outputText value="#{pacijentController.selected.sifradoktora.toString()}" title="#{bundle.ViewPacijentTitle_sifradoktora}"/>
                         <h:outputText value="#{bundle.ViewPacijentLabel_siframedsestre}"/>
-                        <h:outputText value="#{pacijentController.selected.siframedsestre}" title="#{bundle.ViewPacijentTitle_siframedsestre}"/>
+                        <h:outputText value="#{pacijentController.selected.siframedsestre.toString()}" title="#{bundle.ViewPacijentTitle_siframedsestre}"/>
                     </p:panelGrid>
-                    <p:tabView>
+                    <p:tabView onTabShow="PF('PacijentViewDialog').initPosition();" dynamic="true">
                         <p:tab title="Intervencije">
                             <p:dataTable var="intervencija" paginator="true" rowKey="#{intervencija.id}"
                                          rows="5"
@@ -66,7 +66,7 @@
                                          rowsPerPageTemplate="5,10,15,20,25" value="#{pacijentController.selected.zubList}">
 
                                 <p:column headerText="Oznaka">
-                                    <h:outputText value="#{z.oznaka}" />
+                                    <h:outputText value="#{z.toString()}" />
                                 </p:column>
                                 <p:column headerText="Stanje zuba">
                                     <h:outputText value="#{z.stanjeZuba}" />

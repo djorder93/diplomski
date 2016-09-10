@@ -12,10 +12,8 @@
             <h:form id="ZubCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{zubController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateZubLabel_zubPK_sifraZuba}" for="zubPK_sifraZuba" />
-                        <p:inputText id="zubPK_sifraZuba" value="#{zubController.selected.zubPK.sifraZuba}" title="#{bundle.CreateZubTitle_zubPK_sifraZuba}" required="true" requiredMessage="#{bundle.CreateZubRequiredMessage_zubPK_sifraZuba}"/>
                         <p:outputLabel value="#{bundle.CreateZubLabel_oznaka}" for="oznaka" />
-                        <p:inputText id="oznaka" value="#{zubController.selected.oznaka}" title="#{bundle.CreateZubTitle_oznaka}" />
+                        <p:inputText id="oznaka" value="#{zubController.selected.zubPK.oznaka}" required="true" requiredMessage="#{bundle.EditZubRequiredMessage_zubPK_oznaka}" title="#{bundle.CreateZubTitle_oznaka}" />
                         <p:outputLabel value="#{bundle.CreateZubLabel_stanjeZuba}" for="stanjeZuba" />
                         <p:inputText id="stanjeZuba" value="#{zubController.selected.stanjeZuba}" title="#{bundle.CreateZubTitle_stanjeZuba}" />
                         <p:outputLabel value="#{bundle.CreateZubLabel_pacijent1}" for="pacijent1" />

@@ -12,14 +12,12 @@
             <h:form id="ZubViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{zubController.selected != null}">
-                        <h:outputText value="#{bundle.ViewZubLabel_zubPK_sifraZuba}"/>
-                        <h:outputText value="#{zubController.selected.zubPK.sifraZuba}" title="#{bundle.ViewZubTitle_zubPK_sifraZuba}"/>
                         <h:outputText value="#{bundle.ViewZubLabel_oznaka}"/>
-                        <h:outputText value="#{zubController.selected.oznaka}" title="#{bundle.ViewZubTitle_oznaka}"/>
+                        <h:outputText value="#{zubController.selected.zubPK.oznaka}" title="#{bundle.ViewZubTitle_oznaka}"/>
                         <h:outputText value="#{bundle.ViewZubLabel_stanjeZuba}"/>
                         <h:outputText value="#{zubController.selected.stanjeZuba}" title="#{bundle.ViewZubTitle_stanjeZuba}"/>
                         <h:outputText value="#{bundle.ViewZubLabel_pacijent1}"/>
-                        <h:outputText value="#{zubController.selected.pacijent1}" title="#{bundle.ViewZubTitle_pacijent1}"/>
+                        <h:outputText value="#{zubController.selected.pacijent1.toString()}" title="#{bundle.ViewZubTitle_pacijent1}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ZubViewDialog.hide()"/>
                 </h:panelGroup>

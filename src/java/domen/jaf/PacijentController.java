@@ -1,12 +1,20 @@
 package domen.jaf;
 
+import domen.Medsestra;
 import domen.Pacijent;
+import domen.Zub;
+import domen.ZubPK;
 import domen.jaf.util.JsfUtil;
 import domen.jaf.util.JsfUtil.PersistAction;
 import domen.beans.PacijentFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,10 +22,13 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import oracle.jrockit.jfr.parser.ParseException;
+import org.primefaces.event.RowEditEvent;
 
 @Named("pacijentController")
 @SessionScoped
@@ -27,8 +38,29 @@ public class PacijentController implements Serializable {
     private domen.beans.PacijentFacade ejbFacade;
     private List<Pacijent> items = null;
     private Pacijent selected;
+    private Zub zub;
+    private List<Zub> lz;
+   // private List<Pacijent> filtr;
 
     public PacijentController() {
+        zub = new Zub();
+        lz = new ArrayList<>();
+    }
+
+//    public List<Pacijent> getFiltr() {
+//        return filtr;
+//    }
+//
+//    public void setFiltr(List<Pacijent> filtr) {
+//        this.filtr = filtr;
+//    }
+
+    public Zub getZub() {
+        return zub;
+    }
+
+    public void setZub(Zub zub) {
+        this.zub = zub;
     }
 
     public Pacijent getSelected() {
@@ -49,6 +81,25 @@ public class PacijentController implements Serializable {
         return ejbFacade;
     }
 
+    public void insertZub() {
+        ZubPK zpk = new ZubPK(zub.getZubPK().getOznaka(), selected.getSifrapacijenta());
+        zub.setZubPK(zpk);
+        zub.setPacijent1(selected);
+        lz.add(zub);
+        zub = new Zub();
+    }
+
+    public void onRowEdit(RowEditEvent e) {
+        Zub z = (Zub) e.getObject();
+        lz.add(z);
+    }
+
+    public void onRowCancel(RowEditEvent e) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Zub) e.getObject()).toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+
     public Pacijent prepareCreate() {
         selected = new Pacijent();
         initializeEmbeddableKey();
@@ -64,6 +115,7 @@ public class PacijentController implements Serializable {
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PacijentUpdated"));
+
     }
 
     public void destroy() {
@@ -84,6 +136,8 @@ public class PacijentController implements Serializable {
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
+            selected.setZubList(lz);
+            selected.setSiframedsestre((Medsestra) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("logged"));
             try {
                 if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
@@ -121,7 +175,7 @@ public class PacijentController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Pacijent.class )
+    @FacesConverter(forClass = Pacijent.class)
     public static class PacijentControllerConverter implements Converter {
 
         @Override

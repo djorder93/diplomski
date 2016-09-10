@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,8 +21,8 @@ import javax.validation.constraints.NotNull;
 public class ZubPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "sifraZuba")
-    private int sifraZuba;
+    @Column(name = "oznaka")
+    private int oznaka;
     @Basic(optional = false)
     @NotNull
     @Column(name = "pacijent")
@@ -30,16 +32,16 @@ public class ZubPK implements Serializable {
     }
 
     public ZubPK(int sifraZuba, int pacijent) {
-        this.sifraZuba = sifraZuba;
+        this.oznaka = sifraZuba;
         this.pacijent = pacijent;
     }
 
-    public int getSifraZuba() {
-        return sifraZuba;
+    public int getOznaka() {
+        return oznaka;
     }
 
-    public void setSifraZuba(int sifraZuba) {
-        this.sifraZuba = sifraZuba;
+    public void setOznaka(int sifraZuba) {
+        this.oznaka = sifraZuba;
     }
 
     public int getPacijent() {
@@ -53,7 +55,7 @@ public class ZubPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) sifraZuba;
+        hash += (int) oznaka;
         hash += (int) pacijent;
         return hash;
     }
@@ -65,7 +67,7 @@ public class ZubPK implements Serializable {
             return false;
         }
         ZubPK other = (ZubPK) object;
-        if (this.sifraZuba != other.sifraZuba) {
+        if (this.oznaka != other.oznaka) {
             return false;
         }
         if (this.pacijent != other.pacijent) {
@@ -76,7 +78,7 @@ public class ZubPK implements Serializable {
 
     @Override
     public String toString() {
-        return "domen.ZubPK[ sifraZuba=" + sifraZuba + ", pacijent=" + pacijent + " ]";
+        return ""+oznaka;
     }
-    
+
 }

@@ -17,9 +17,9 @@
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewTerminLabel_pacijent1}"/>
-                        <h:outputText value="#{terminController.selected.pacijent1}" title="#{bundle.ViewTerminTitle_pacijent1}"/>
+                        <h:outputText value="#{terminController.selected.pacijent1.toString()}" title="#{bundle.ViewTerminTitle_pacijent1}"/>
                         <h:outputText value="#{bundle.ViewTerminLabel_medsestra}"/>
-                        <h:outputText value="#{terminController.selected.medsestra}" title="#{bundle.ViewTerminTitle_medsestra}"/>
+                        <h:outputText value="#{terminController.selected.medsestra.toString()}" title="#{bundle.ViewTerminTitle_medsestra}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="TerminViewDialog.hide()"/>
                 </h:panelGroup>

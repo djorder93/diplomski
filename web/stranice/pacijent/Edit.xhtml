@@ -8,10 +8,12 @@
 
     <ui:composition>
 
-        <p:dialog id="PacijentEditDlg" widgetVar="PacijentEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPacijentTitle}">
+        <p:dialog id="PacijentEditDlg" widgetVar="PacijentEditDialog" modal="true" position="center top" resizable="false" appendTo="@(body)" header="#{bundle.EditPacijentTitle}">
             <h:form id="PacijentEditForm">
+                <p:growl id="msgs" showDetail="true"/>
+
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{pacijentController.selected != null}">
+                    <p:panelGrid columns="2"  rendered="#{pacijentController.selected != null}">
                         <p:outputLabel value="#{bundle.EditPacijentLabel_jmbg}" for="jmbg" />
                         <p:inputText id="jmbg" value="#{pacijentController.selected.jmbg}" title="#{bundle.EditPacijentTitle_jmbg}" />
                         <p:outputLabel value="#{bundle.EditPacijentLabel_ime}" for="ime" />
@@ -37,6 +39,33 @@
                                            itemValue="#{siframedsestreItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:tabView onTabShow="PF('PacijentEditDialog').initPosition();" dynamic="true">
+                        <p:tab title="Insert zub">
+                            <p:panelGrid columns="2" >
+                                <p:outputLabel value="#{bundle.CreateZubLabel_oznaka}" for="oznaka" />
+                                <p:inputText id="oznaka" value="#{pacijentController.zub.zubPK.oznaka}"   title="#{bundle.CreateZubTitle_oznaka}" />
+                                <p:outputLabel value="#{bundle.CreateZubLabel_stanjeZuba}" for="stanjeZuba" />
+                                <p:inputText id="stanjeZuba" value="#{pacijentController.zub.stanjeZuba}" title="#{bundle.CreateZubTitle_stanjeZuba}" />
+
+                            </p:panelGrid>
+                            <p:commandButton actionListener="#{pacijentController.insertZub()}" value="Insert zub" />
+                        </p:tab>
+                        <p:tab title="Lista zuba">
+                            <p:dataTable var="z" paginator="true" id="zubiList" rows="5" rowsPerPageTemplate="5,10,15,20,25" 
+                                         value="#{pacijentController.selected.zubList}" editable="true" style="margin-bottom:20px">
+                                <p:column headerText="Oznaka">
+                                    <h:outputText value="#{z.toString()}" />
+                                </p:column>
+                                <p:column headerText="Stanje zuba">
+                                    <h:outputText value="#{z.stanjeZuba}" />
+                                </p:column>
+                                <p:column style="width:32px">
+                                    <p:rowEditor />
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:tab>
+                    </p:tabView>
                     <p:commandButton actionListener="#{pacijentController.update}" value="#{bundle.Save}" update="display,:PacijentListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PacijentEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PacijentEditDialog.hide()"/>
                 </h:panelGroup>

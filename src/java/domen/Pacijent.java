@@ -6,14 +6,13 @@
 package domen;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,13 +22,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import kontroler.Kontroler;
 
 /**
  *
@@ -84,6 +83,9 @@ public class Pacijent implements Serializable {
     private List<Termin> terminList;
 
     public Pacijent() {
+        zubList = new ArrayList<>();
+        intervencijaList = new ArrayList<>();
+        terminList = new ArrayList<>();
     }
 
     public Pacijent(Integer sifrapacijenta) {
@@ -156,13 +158,7 @@ public class Pacijent implements Serializable {
 
     @XmlTransient
     public List<Intervencija> getIntervencijaList() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
-        EntityManager em = emf.createEntityManager();
-
-        intervencijaList = em.createNamedQuery("Intervencija.listForPacijent", Intervencija.class).setParameter("pacijent", this).getResultList();
-        em.close();
-        emf.close();
-        return intervencijaList;
+        return Kontroler.vratiInstancu().getIntervencijaList(this);
     }
 
     public void setIntervencijaList(List<Intervencija> intervencijaList) {
@@ -171,13 +167,7 @@ public class Pacijent implements Serializable {
 
     @XmlTransient
     public List<Zub> getZubList() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
-        EntityManager em = emf.createEntityManager();
-
-        zubList = em.createNamedQuery("Zub.findByPacijent", Zub.class).setParameter("pacijent", this).getResultList();
-        em.close();
-        emf.close();
-        return zubList;
+        return Kontroler.vratiInstancu().getZubList(this);
     }
 
     public void setZubList(List<Zub> zubList) {
@@ -186,13 +176,7 @@ public class Pacijent implements Serializable {
 
     @XmlTransient
     public List<Termin> getTerminList() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("diplomskiPU");
-        EntityManager em = emf.createEntityManager();
-
-        terminList = em.createNamedQuery("Termin.findByPacijent", Termin.class).setParameter("pacijent", this).getResultList();
-        em.close();
-        emf.close();
-        return terminList;
+        return Kontroler.vratiInstancu().getTerminList(this);
     }
 
     public void setTerminList(List<Termin> terminList) {
