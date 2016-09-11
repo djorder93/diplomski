@@ -23,7 +23,7 @@
                         <p:outputLabel value="#{bundle.EditPacijentLabel_telefon}" for="telefon" />
                         <p:inputText id="telefon" value="#{pacijentController.selected.telefon}" title="#{bundle.EditPacijentTitle_telefon}" />
                         <p:outputLabel value="#{bundle.EditPacijentLabel_datumrodjenja}" for="datumrodjenja" />
-                        <p:calendar id="datumrodjenja" pattern="MM/dd/yyyy" value="#{pacijentController.selected.datumrodjenja}" title="#{bundle.EditPacijentTitle_datumrodjenja}"  showOn="button"/>
+                        <p:calendar id="datumrodjenja" pattern="dd/MM/yyyy" value="#{pacijentController.selected.datumrodjenja}" title="#{bundle.EditPacijentTitle_datumrodjenja}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditPacijentLabel_sifradoktora}" for="sifradoktora" />
                         <p:selectOneMenu id="sifradoktora" value="#{pacijentController.selected.sifradoktora}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -38,34 +38,35 @@
                                            var="siframedsestreItem"
                                            itemValue="#{siframedsestreItem}"/>
                         </p:selectOneMenu>
+                    </p:panelGrid >
+                    <p:separator />
+                    <p:panelGrid columns="3">
+                        <p:inputText id="oznaka" value="#{pacijentController.zub.zubPK.oznaka}" title="Oznaka zuba" />
+                        <p:inputText id="stanjeZuba" value="#{pacijentController.zub.stanjeZuba}" title="Stanje zuba" />
+                        <p:commandButton actionListener="#{pacijentController.insertZub}" value="Add " update="zubiList"/>
                     </p:panelGrid>
-                    <p:tabView onTabShow="PF('PacijentEditDialog').initPosition();" dynamic="true">
-                        <p:tab title="Insert zub">
-                            <p:panelGrid columns="2" >
-                                <p:outputLabel value="#{bundle.CreateZubLabel_oznaka}" for="oznaka" />
-                                <p:inputText id="oznaka" value="#{pacijentController.zub.zubPK.oznaka}"   title="#{bundle.CreateZubTitle_oznaka}" />
-                                <p:outputLabel value="#{bundle.CreateZubLabel_stanjeZuba}" for="stanjeZuba" />
-                                <p:inputText id="stanjeZuba" value="#{pacijentController.zub.stanjeZuba}" title="#{bundle.CreateZubTitle_stanjeZuba}" />
-
-                            </p:panelGrid>
-                            <p:commandButton actionListener="#{pacijentController.insertZub()}" value="Insert zub" />
-                        </p:tab>
-                        <p:tab title="Lista zuba">
-                            <p:dataTable var="z" paginator="true" id="zubiList" rows="5" rowsPerPageTemplate="5,10,15,20,25" 
-                                         value="#{pacijentController.selected.zubList}" editable="true" style="margin-bottom:20px">
-                                <p:column headerText="Oznaka">
-                                    <h:outputText value="#{z.toString()}" />
-                                </p:column>
-                                <p:column headerText="Stanje zuba">
+                    <p:separator />
+                    <p:dataTable var="z" paginator="true" id="zubiList" rows="5" rowsPerPageTemplate="5,10,15,20,25" 
+                                 value="#{pacijentController.lz}" editable="true" style="margin-bottom:20px">
+                        <p:column headerText="Oznaka">
+                            <h:outputText value="#{z.toString()}" />
+                        </p:column>
+                        <p:column headerText="Stanje zuba">
+                            <p:cellEditor>
+                                <f:facet name="output">
                                     <h:outputText value="#{z.stanjeZuba}" />
-                                </p:column>
-                                <p:column style="width:32px">
-                                    <p:rowEditor />
-                                </p:column>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText  value="#{z.stanjeZuba}" style="width:100%"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column style="width:32px">
+                            <p:rowEditor />
+                        </p:column>
 
-                            </p:dataTable>
-                        </p:tab>
-                    </p:tabView>
+                    </p:dataTable>
+
                     <p:commandButton actionListener="#{pacijentController.update}" value="#{bundle.Save}" update="display,:PacijentListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PacijentEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PacijentEditDialog.hide()"/>
                 </h:panelGroup>

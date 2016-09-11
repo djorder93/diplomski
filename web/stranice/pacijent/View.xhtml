@@ -22,7 +22,7 @@
                         <h:outputText value="#{pacijentController.selected.telefon}" title="#{bundle.ViewPacijentTitle_telefon}"/>
                         <h:outputText value="#{bundle.ViewPacijentLabel_datumrodjenja}"/>
                         <h:outputText value="#{pacijentController.selected.datumrodjenja}" title="#{bundle.ViewPacijentTitle_datumrodjenja}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+1"/>
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewPacijentLabel_sifradoktora}"/>
                         <h:outputText value="#{pacijentController.selected.sifradoktora.toString()}" title="#{bundle.ViewPacijentTitle_sifradoktora}"/>
@@ -55,7 +55,7 @@
 
                                 <p:column headerText="Datum">
                                     <h:outputText value="#{term.terminPK.datum}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                                     </h:outputText>
                                 </p:column>
                             </p:dataTable>

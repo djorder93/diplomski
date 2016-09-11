@@ -6,6 +6,7 @@
 package domen;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -81,6 +83,8 @@ public class Pacijent implements Serializable {
     private List<Zub> zubList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacijent1", fetch = FetchType.EAGER)
     private List<Termin> terminList;
+    @Transient
+    private String datFilter;
 
     public Pacijent() {
         zubList = new ArrayList<>();
@@ -181,6 +185,13 @@ public class Pacijent implements Serializable {
 
     public void setTerminList(List<Termin> terminList) {
         this.terminList = terminList;
+    }
+    public String getDatFilter() {
+        return new SimpleDateFormat("dd/MM/yyyy").format(datumrodjenja);
+    }
+
+    public void setDatFilter(String datFilter) {
+        this.datFilter = datFilter;
     }
 
     @Override

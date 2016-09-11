@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{terminController.selected != null}">
                         <p:outputLabel value="#{bundle.EditTerminLabel_terminPK_datum}" for="terminPK_datum" />
-                        <p:calendar id="terminPK_datum" pattern="MM/dd/yyyy HH:mm:ss" value="#{terminController.selected.terminPK.datum}" title="#{bundle.EditTerminTitle_terminPK_datum}" required="true" requiredMessage="#{bundle.EditTerminRequiredMessage_terminPK_datum}" showOn="button"/>
+                        <p:calendar id="terminPK_datum" pattern="MM/dd/yyyy HH:mm" stepMinute="30" value="#{terminController.selected.terminPK.datum}" title="#{bundle.EditTerminTitle_terminPK_datum}" required="true" requiredMessage="#{bundle.EditTerminRequiredMessage_terminPK_datum}" showOn="button"/>
                         <p:outputLabel value="#{bundle.EditTerminLabel_pacijent1}" for="pacijent1" />
                         <p:selectOneMenu id="pacijent1" value="#{terminController.selected.pacijent1}" required="true" requiredMessage="#{bundle.EditTerminRequiredMessage_pacijent1}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

@@ -30,7 +30,9 @@
                                 </p:column>
 
                                 <p:column headerText="Datum">
-                                    <h:outputText value="#{intervencija.datum}" />
+                                    <h:outputText value="#{intervencija.datum}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT+1"/>
+                                    </h:outputText>
                                 </p:column>
 
                                 <p:column headerText="Oznaka zuba">

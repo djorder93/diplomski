@@ -9,12 +9,8 @@ import domen.jaf.util.JsfUtil.PersistAction;
 import domen.beans.PacijentFacade;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,8 +23,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import oracle.jrockit.jfr.parser.ParseException;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
 
 @Named("pacijentController")
 @SessionScoped
@@ -40,20 +37,19 @@ public class PacijentController implements Serializable {
     private Pacijent selected;
     private Zub zub;
     private List<Zub> lz;
-   // private List<Pacijent> filtr;
 
     public PacijentController() {
         zub = new Zub();
         lz = new ArrayList<>();
     }
 
-//    public List<Pacijent> getFiltr() {
-//        return filtr;
-//    }
-//
-//    public void setFiltr(List<Pacijent> filtr) {
-//        this.filtr = filtr;
-//    }
+    public List<Zub> getLz() {
+        return lz;
+    }
+
+    public void setLz(List<Zub> lz) {
+        this.lz = lz;
+    }
 
     public Zub getZub() {
         return zub;
@@ -69,6 +65,9 @@ public class PacijentController implements Serializable {
 
     public void setSelected(Pacijent selected) {
         this.selected = selected;
+        if (selected.getZubList() != null) {
+            lz = selected.getZubList();
+        }
     }
 
     protected void setEmbeddableKeys() {
@@ -98,7 +97,9 @@ public class PacijentController implements Serializable {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Zub) e.getObject()).toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    public void datFilter(SelectEvent event) {
+        RequestContext.getCurrentInstance().execute("PF('pacijenti').filter()");
+    }
 
     public Pacijent prepareCreate() {
         selected = new Pacijent();

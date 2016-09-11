@@ -1,31 +1,24 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Login</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/jsfcrud_1.css"/>
+       
     </h:head>
     <h:body>
-        <h:form>
-            <p:growl id="growl" sticky="true" showDetail="true"/>
-            <p:panelGrid columns="2" style="position: absolute; top: 300px; left: 500px;">
-                <f:facet name="header">Login</f:facet>
-                <h:outputText value="Korisnicko ime:"/>
-                <p:inputText value="#{mbLogin.ms.korisnickoIme}"/>
-                <h:outputText value="Lozinka: "/>    
-                <p:password value="#{mbLogin.ms.lozinka}"/>
-                <f:facet name="footer">
-                    <p:commandButton value="Login" action="#{mbLogin.login()}"/>
-                </f:facet>
-            </p:panelGrid>
+        <h:form styleClass="login" >
+            <p:growl id="growl" sticky="true"  showDetail="true"/>
+            <h1>Login</h1>
+            <p:inputText id="uname" value="#{mbLogin.ms.korisnickoIme}"   placeholder="Username" required="true" requiredMessage="Unesi korisnicko ime"/>
+            <p:password id="pass" value="#{mbLogin.ms.lozinka}" required="true" placeholder="Password"   requiredMessage="Unesi lozinku"/>
+            <p:commandButton value="Login" update="growl" validateClient="true" icon="fa fa-sign-in" action="#{mbLogin.login()}" styleClass="button"/>
         </h:form>
 
 
-       
+
     </h:body>
 
 

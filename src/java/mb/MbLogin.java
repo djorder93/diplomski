@@ -6,8 +6,8 @@
 package mb;
 
 import domen.Medsestra;
+import domen.jaf.util.JsfUtil;
 import java.io.Serializable;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -26,6 +26,7 @@ public class MbLogin implements Serializable {
      * Creates a new instance of MbLogin
      */
     Medsestra ms;
+    
 
     public MbLogin() {
         ms = new Medsestra();
@@ -38,6 +39,43 @@ public class MbLogin implements Serializable {
     public void setMs(Medsestra ms) {
         this.ms = ms;
     }
+
+    public String login() {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            ms = Kontroler.vratiInstancu().login(ms);
+
+            if (ms == null) {
+                JsfUtil.addErrorMessageLogin("Login error user doesn't exist!");
+                return null;
+            } else {
+                JsfUtil.addSuccessMessageLogin("Welcom " + ms.toString());
+                HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+                session.setAttribute("logged", ms);
+                return "/stranice/template.xhtml?faces-redirect=true";
+            }
+        } catch (Exception e) {
+            JsfUtil.addErrorMessageLogin("Login error user doesn't exist!");
+            return null;
+        }
+    }
+
+    public String logout() {
+
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index.xhtml?redirexted?faces-redirect=true";
+    }
+
+    public String loggedUser() {
+        //System.out.println("Ulogovani korisnik: " + FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("logged").toString());
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("logged").toString();
+    }
+
+    public Medsestra getLogged() {
+        return (Medsestra) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("logged");
+    }
+}
 
 //    public String login() {
 //
@@ -58,30 +96,6 @@ public class MbLogin implements Serializable {
 //
 //        return null;
 //    }
-    public String login() {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-            ms = Kontroler.vratiInstancu().login(ms);
-            if (ms == null) {
-               // RequestContext.getCurrentInstance().update("growl");
-                context.addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_WARN,
-                                "Invalid Login!",
-                                "Please Try Again!"));
-
-                return null;
-            } else {
-                //context.getExternalContext().getSessionMap().put("logged", ms);
-                 //RequestContext.getCurrentInstance().update("growl");
-                context.addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Uspesno ste ulogovani!",
-                                "Cestitamo!"));
-                HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-                session.setAttribute("logged", ms);
-                return "/stranice/template.xhtml?faces-redirect=true";
-            }
-    }
 //    public String logout() {
 ////        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 ////        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null,"/login.xhtml");
@@ -90,19 +104,3 @@ public class MbLogin implements Serializable {
 //        session.invalidate();
 //        return "/index.xhtml?redirexted?faces-redirect=true";
 //    }
-
-    public String logout() {
-
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/index.xhtml?redirexted?faces-redirect=true";
-    }
-
-    public String loggedUser() {
-        System.out.println("Ulogovani korisnik: " + FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("logged").toString());
-        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("logged").toString();
-    }
-
-    public Medsestra getLogged() {
-        return (Medsestra) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("logged");
-    }
-}

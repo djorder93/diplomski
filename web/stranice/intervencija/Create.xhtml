@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateIntervencijaLabel_naziv}" for="naziv" />
                         <p:inputText id="naziv" value="#{intervencijaController.selected.naziv}" title="#{bundle.CreateIntervencijaTitle_naziv}" />
                         <p:outputLabel value="#{bundle.CreateIntervencijaLabel_datum}" for="datum" />
-                        <p:calendar id="datum" pattern="MM/dd/yyyy HH:mm:ss" value="#{intervencijaController.selected.datum}" title="#{bundle.EditIntervencijaTitle_datum}"  showOn="button"/>
+                        <p:calendar id="datum" pattern="dd/MM/yyyy HH:mm:ss" value="#{intervencijaController.selected.datum}" title="#{bundle.EditIntervencijaTitle_datum}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateIntervencijaLabel_doktor}" for="doktor" />
                         <p:selectOneMenu id="doktor" value="#{intervencijaController.selected.doktor}" >
                             <f:selectItems value="#{doktorController.itemsAvailableSelectOne}"

@@ -14,7 +14,7 @@
                     <p:panelGrid columns="2" rendered="#{terminController.selected != null}">
                         <h:outputText value="#{bundle.ViewTerminLabel_terminPK_datum}"/>
                         <h:outputText value="#{terminController.selected.terminPK.datum}" title="#{bundle.ViewTerminTitle_terminPK_datum}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT+1"/>
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewTerminLabel_pacijent1}"/>
                         <h:outputText value="#{terminController.selected.pacijent1.toString()}" title="#{bundle.ViewTerminTitle_pacijent1}"/>

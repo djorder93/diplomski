@@ -33,7 +33,7 @@
                                 <h:outputText value="#{bundle.ListTerminTitle_terminPK_datum}"/>
                             </f:facet>
                             <h:outputText value="#{item.terminPK.datum}">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT+2"/>
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -42,10 +42,16 @@
                             </f:facet>
                             <h:outputText value="#{item.pacijent1.toString()}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Doktor"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pacijent1.sifradoktora.toString()}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{terminController.prepareCreate}" update=":TerminCreateForm" oncomplete="PF('TerminCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TerminViewForm" oncomplete="PF('TerminViewDialog').show()" disabled="#{empty terminController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TerminEditForm" oncomplete="PF('TerminEditDialog').show()" disabled="#{empty terminController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TerminEditForm" oncomplete="PF('TerminEditDialog').show()" disabled="true"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{terminController.destroy}" update=":growl,datalist" disabled="#{empty terminController.selected}"/>
                         </f:facet>
                     </p:dataTable>

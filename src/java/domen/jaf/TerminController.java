@@ -1,11 +1,14 @@
 package domen.jaf;
 
+import domen.Medsestra;
 import domen.Termin;
 import domen.jaf.util.JsfUtil;
 import domen.jaf.util.JsfUtil.PersistAction;
 import domen.beans.TerminFacade;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -41,6 +44,7 @@ public class TerminController implements Serializable {
 
     protected void setEmbeddableKeys() {
         selected.getTerminPK().setPacijent(selected.getPacijent1().getSifrapacijenta());
+        selected.setMedsestra((Medsestra) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("logged"));
         selected.getTerminPK().setMedSestra(selected.getMedsestra().getSifraMedSestre());
     }
 
@@ -82,6 +86,15 @@ public class TerminController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    public Date currentDate(){
+        Calendar c =Calendar.getInstance();
+        c.setTime(new Date());
+        c.set(Calendar.HOUR_OF_DAY, 0);  
+        c.set(Calendar.MINUTE, 0);  
+        c.set(Calendar.SECOND, 0);  
+        c.set(Calendar.MILLISECOND, 0);  
+        return c.getTime(); 
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
